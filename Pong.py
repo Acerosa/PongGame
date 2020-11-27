@@ -1,6 +1,7 @@
 import pygame, sys
 
 from objects.Ball import Ball
+from objects.Paddle import Paddle
 
 pygame.init()
 
@@ -20,7 +21,9 @@ paint_screen()
 
 pygame.display.set_caption('Pong!')
 
-ball = Ball(screen, WHITE, WIDTH//2, HEIGHT // 2, 8)
+ball = Ball(screen, WHITE, WIDTH//2, HEIGHT // 2, 16)
+paddle1 = Paddle(screen, WHITE, 15, HEIGHT//2-60, 20, 120)
+paddle2 = Paddle(screen, WHITE, WIDTH-20-15, HEIGHT//2-60, 20, 120)
 
 #main loop
 
