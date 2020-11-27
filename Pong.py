@@ -1,5 +1,7 @@
 import pygame, sys
 
+from objects.Ball import Ball
+
 pygame.init()
 
 WIDTH = 900
@@ -17,6 +19,8 @@ paint_screen()
 
 
 pygame.display.set_caption('Pong!')
+
+ball = Ball(screen, WHITE, WIDTH//2, HEIGHT // 2, 8)
 
 #main loop
 
