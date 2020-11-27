@@ -9,7 +9,13 @@ WHITE = (255, 255, 255)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-screen.fill(BLACK)
+def paint_screen():
+    screen.fill(BLACK)
+    pygame.draw.line(screen, WHITE, (WIDTH//2, 0),(WIDTH//2, HEIGHT), 6)
+
+paint_screen()
+
+
 pygame.display.set_caption('Pong!')
 
 #main loop
