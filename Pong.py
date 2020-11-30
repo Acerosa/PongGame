@@ -37,10 +37,35 @@ while True:
             if event.key == pygame.K_p:
                 ball.startMovingBall()
                 playing = True
+            if event.key == pygame.K_w:
+                paddle1.state = 'up'
+            if event.key == pygame.K_s:
+                paddle1.state = 'down'
+            if event.key == pygame.K_UP:
+                paddle2.state = 'up'
+            if event.key == pygame.K_DOWN:
+                paddle2.state = 'down'
+
+        if event.type == pygame.KEYUP:
+            paddle1.state = 'stopped'
+            paddle2.state = 'stopped'
+
+
         if playing:
+            #settng screen
             paint_screen()
+
+            #moving ball
             ball.moveBall()
+
+            #showing ball
             ball.showBall()
+
+            #moving Paddles
+            paddle1.movePaddle()
+            paddle2.movePaddle()
+
+            #showing Paddles
             paddle1.showPaddle()
             paddle2.showPaddle()
 
