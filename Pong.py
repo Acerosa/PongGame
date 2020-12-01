@@ -2,11 +2,12 @@ import pygame, sys
 
 from objects.Ball import Ball
 from objects.Paddle import Paddle
+from objects.CollisionControl import CollisionControl
+from objects.Score import Score
 
 pygame.init()
 
-WIDTH = 900
-HEIGHT = 600
+WIDTH, HEIGHT = 900, 500
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
@@ -24,6 +25,9 @@ pygame.display.set_caption('Pong!')
 ball = Ball(screen, WHITE, WIDTH//2, HEIGHT // 2, 16)
 paddle1 = Paddle(screen, WHITE, 15, HEIGHT//2-60, 20, 120)
 paddle2 = Paddle(screen, WHITE, WIDTH-20-15, HEIGHT//2-60, 20, 120)
+collision = CollisionControl()
+score1 = Score(screen, '0', WIDTH//4, 15)
+score2 = Score(screen, '0', WIDTH - WIDTH//4, 15)
 #VARIABLES
 playing = False
 #main loop
@@ -34,8 +38,8 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_p:
-                ball.startMovingBall()
+            if event.key == pygame.K_p and not playing:
+                ball.startMoving()
                 playing = True
             if event.key == pygame.K_w:
                 paddle1.state = 'up'
@@ -61,13 +65,39 @@ while True:
             #showing ball
             ball.showBall()
 
-            #moving Paddles
-            paddle1.movePaddle()
-            paddle2.movePaddle()
 
-            #showing Paddles
+            #Paddl1
+            paddle1.movePaddle()
+            paddle1.clamp()
             paddle1.showPaddle()
+
+
+            #Paddl2
+            paddle2.movePaddle()
+            paddle2.clamp()
             paddle2.showPaddle()
+
+            #checing and setting collisions
+            if collision.collision_ball_paddle1(ball, paddle1):
+                ball.paddle_collision()
+
+            if collision.collision_ball_paddle2(ball, paddle2):
+                ball.margin_collision()
+
+            if collision.collision_ball_margin(ball):
+                ball.margin_collision()
+
+            if collision.check_for_player1_goal(ball):
+                score1.increase()
+                ball.restart_ball_position()
+
+            if collision.check_for_player2_goal(ball):
+                score2.increase()
+                ball.restart_ball_position()
+
+
+        score1.showScore()
+        score2.showScore()
 
 
 

@@ -1,6 +1,9 @@
 import pygame
 
+HEIGHT = 500
+
 class Paddle:
+
 
     def __init__(self, screen, color, posX, posY, width, height):
         self.screen = screen
@@ -21,3 +24,9 @@ class Paddle:
             self.posY -= 10
         elif self.state == 'down':
             self.posY += 10
+
+    def clamp(self):
+        if self.posY <= 0:
+            self.posY = 0
+        if self.posY + self.height >= HEIGHT:
+            self.posY = HEIGHT - self.height
