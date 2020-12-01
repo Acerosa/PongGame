@@ -17,6 +17,13 @@ def paint_screen():
     screen.fill(BLACK)
     pygame.draw.line(screen, WHITE, (WIDTH//2, 0),(WIDTH//2, HEIGHT), 6)
 
+def reset():
+    paint_screen()
+    score1.restart_score_()
+    score2.restart_score_()
+    paddle1.restart_paddle_position()
+    paddle2.restart_paddle_position()
+
 paint_screen()
 
 
@@ -41,6 +48,9 @@ while True:
             if event.key == pygame.K_p and not playing:
                 ball.startMoving()
                 playing = True
+            if event.key == pygame.K_r:
+                reset()
+                playing = False
             if event.key == pygame.K_w:
                 paddle1.state = 'up'
             if event.key == pygame.K_s:
@@ -88,12 +98,20 @@ while True:
                 ball.margin_collision()
 
             if collision.check_for_player1_goal(ball):
+                paint_screen()
                 score1.increase()
                 ball.restart_ball_position()
+                paddle1.restart_paddle_position()
+                paddle2.restart_paddle_position()
+                playing = False
 
             if collision.check_for_player2_goal(ball):
+                paint_screen()
                 score2.increase()
                 ball.restart_ball_position()
+                paddle1.restart_paddle_position()
+                paddle2.restart_paddle_position()
+                playing = False
 
 
         score1.showScore()

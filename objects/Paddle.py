@@ -30,3 +30,8 @@ class Paddle:
             self.posY = 0
         if self.posY + self.height >= HEIGHT:
             self.posY = HEIGHT - self.height
+
+    def restart_paddle_position(self):
+        self.posY = HEIGHT//2 - self.height//2
+        self.state = 'stopped'
+        self.showPaddle()

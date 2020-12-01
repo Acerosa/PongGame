@@ -22,3 +22,7 @@ class Score:
         points = int(self.points) + 1
         self.points = str(points)
         self.label = self.font.rende(self.points, 0, WHITE)
+
+    def restart_score_(self):
+        self.points = '0'
+        self.label = self.font.render(self.points, 0, WHITE)
